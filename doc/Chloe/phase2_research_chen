@@ -1,0 +1,26 @@
+Project Phase Two – Research
+Chloe Chen
+9/28/16
+
+For the Spatial Role Labeling project, researchers have used machine learning to solve it. Spatial relations are defined
+as relations between objects, whereas the object that takes the central role in the relationship is called trajector,
+and the secondary object that complements the relationship is called the landmark. A static spatial relation is defined
+as a tuple that contains a trajector, a landmark and a spatial indicator.
+
+Researchers made five different tasks for the machine – to identify types of spatial annotations, to identify tuples
+that connect spatial indicators identified, to identify markable spans for spatial annotations, to identify n-tuples
+that connect spatial markables identified, and to identify the semantics of spatial relationships. In the first and
+third tasks, roles are labeled by a sequence-based classifier. In the second task, all roles found from the first
+task are combined to generate candidate relations, which are verified by a Support Vector Machine classifier. A
+convolution kernel is used to measure the similarity between syntactic structures. The overall results of previous
+research show that machine learning models can learn from annotated data to extract spatial roles and relations.
+I think for future objectives, we can try to make the model applicable to a wider range of data.
+
+References:
+Parisa Kordjamshidi, Martijn van Otterlo, and Marie-Francine Moens. Spatial Role Labeling Annotation Scheme. Retrived
+from http://cogcomp.cs.illinois.edu/~kordjam/papers/SpatialRoleLabeling_MinorReview.
+
+Oleksandr Kolomiyets, Parisa Kordjamshidi, Steven Bethard, and Marie-Francine Moens. SemEval-2013 Task 3: Spatial Role
+Labeling. Retrieved from http://www.aclweb.org/anthology/S13-2044.
+
+
