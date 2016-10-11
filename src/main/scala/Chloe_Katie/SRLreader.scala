@@ -1,26 +1,31 @@
+package Chloe_Katie
+
 /** This software is released under the University of Illinois/Research and Academic Use License. See
   * the LICENSE file in the root folder for details. Copyright (c) 2016
   *
   * Developed by: The Cognitive Computations Group, University of Illinois at Urbana-Champaign
   * http://cogcomp.cs.illinois.edu/
   */
-package edu.illinois.cs.cogcomp.saulexamples.nlp.SpatialRoleLabeling
 
 import java.util.Properties
 
 import edu.illinois.cs.cogcomp.annotation.AnnotatorService
 import edu.illinois.cs.cogcomp.core.datastructures.IntPair
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation._
-import edu.illinois.cs.cogcomp.nlp.common.PipelineConfigurator._
 import edu.illinois.cs.cogcomp.saul.util.Logging
+import edu.illinois.cs.cogcomp.saul
 import edu.illinois.cs.cogcomp.saulexamples.nlp.SpatialRoleLabeling.SpRL2013.SpRL2013Document
+import edu.illinois.cs.cogcomp.saulexamples.nlp.SpatialRoleLabeling.{SpRLAnnotation, SpRLDataReader, SpRLRelation, SpRLSentence}
 import edu.illinois.cs.cogcomp.saulexamples.nlp.TextAnnotationFactory
+import edu.illinois.cs.cogcomp.core.datastructures.textannotation._
+import edu.illinois.cs.cogcomp.nlp.common.PipelineConfigurator._
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable.ListBuffer
 
 /** Created by taher on 8/6/16.
   */
+
 object SpRLDataModelReader extends Logging {
 
   def read(path: String, version: String): List[SpRLSentence] = {
