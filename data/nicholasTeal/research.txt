@@ -1,0 +1,6 @@
+The information I am gathering is actually being found emperically in an on-going experiment.
+I believe this experiment to be novel in its goal - which is to model the brain's distribution of
+attention to the auditory system.  I plan on using machine learning techniques to find the relationship
+between features of the stimulus (in this case sounds) or other variables presented to the subject and
+the subject's reaction time.  As far as I'm aware, this exact study has not been published yet and I will
+update as I learn more.
