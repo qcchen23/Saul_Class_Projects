@@ -1,10 +1,11 @@
 package CMPS_3240_6240Fall16.SpRLExample
 
+import java.util.Properties
+
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation._
-import edu.illinois.cs.cogcomp.core.utilities.configuration.ResourceManager
+import edu.illinois.cs.cogcomp.nlp.common.PipelineConfigurator._
 import edu.illinois.cs.cogcomp.saulexamples.nlp.SpatialRoleLabeling.SpRL2013.SpRL2013Document
-import edu.illinois.cs.cogcomp.saulexamples.nlp.SpatialRoleLabeling.SpRLConfigurator
-import edu.illinois.cs.cogcomp.saulexamples.nlp.SpatialRoleLabeling.SpRLDataReader
+import edu.illinois.cs.cogcomp.saulexamples.nlp.SpatialRoleLabeling.{SpRLAnnotation, SpRLDataReader}
 import edu.illinois.cs.cogcomp.saulexamples.nlp.TextAnnotationFactory
 
 import scala.collection.JavaConverters._
@@ -24,9 +25,6 @@ object PopulateSpRLDataModel {
     }
 
     def readSpRLDocuments(): List[Sentence] = {
-
-
-
       val path = getDataPath()
       val version = "2012"
       def readSpRL2013(): List[Sentence] = {
@@ -34,13 +32,13 @@ object PopulateSpRLDataModel {
         //YOUR EXAMPLE
         val reader = new SpRLDataReader(path, classOf[SpRL2013Document])
         reader.readData()
-        reader.documents.get(0).getTAGS.getTRAJECTOR.asScala.toList
-        ///
-
+        val settings = new Properties()
+        TextAnnotationFactory.disableSettings(settings, USE_SRL_NOM, USE_NER_ONTONOTES)
+        val as = TextAnnotationFactory.createPipelineAnnotatorService(settings)
 
         val sentences = ListBuffer[Sentence]()
         reader.documents.asScala.foreach(doc => {
-          val ta = TextAnnotationFactory.createTextAnnotation("", "", doc.getTEXT().getContent)
+          val ta = TextAnnotationFactory.createTextAnnotation(as, "", "", doc.getTEXT().getContent)
           SetSpRLLabels(ta, doc.getTAGS.getTRAJECTOR.asScala.toList, "Trajector")
           SetSpRLLabels(ta, doc.getTAGS.getSPATIALINDICATOR.asScala.toList, "SpatialIndicator")
           SetSpRLLabels(ta, doc.getTAGS.getLANDMARK.asScala.toList, "Landmark")
@@ -49,7 +47,7 @@ object PopulateSpRLDataModel {
         sentences.toList
       }
 
-      def SetSpRLLabels(ta: TextAnnotation, tokens: List[HasSpan], label: String) = {
+      def SetSpRLLabels(ta: TextAnnotation, tokens: List[SpRLAnnotation], label: String) = {
         tokens.foreach(t => {
           val start = t.getStart().intValue()
           val end = t.getEnd().intValue()
@@ -62,11 +60,7 @@ object PopulateSpRLDataModel {
           }
         })
       }
-
-      version match {
-        case "2013" => readSpRL2013
-        case _ =>
-      }
+     readSpRL2013
     }
   }
 }
