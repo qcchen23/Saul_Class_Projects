@@ -20,8 +20,8 @@ object PopulateSpRLDataModel {
     SpRLDataModel.sentences.populate(readSpRLDocuments(), train = isTraining)
 
     def getDataPath(): String = {
-      if (isTraining) "data/SpRL/2013/IAPR TC-12/gold"
-      else  "data/SpRL/2013/IAPR TC-12/train"
+      if (isTraining) "/Users/chloechen/Documents/machineLearning/Saul_Class_Projects/data/chloedata/sprl2013-master/IAPR TC-12/gold"
+      else  "/Users/chloechen/Documents/machineLearning/Saul_Class_Projects/data/chloedata/sprl2013-master/IAPR TC-12/train"
     }
 
     def readSpRLDocuments(): List[Sentence] = {
