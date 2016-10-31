@@ -20,8 +20,8 @@ object PopulateSpRLDataModel {
 
     def readSpRLDocuments(): List[Sentence] = {
       val path = if (isTrain)
-        "data/IAPR TC-12/gold"
-      else  "data/IAPR TC-12/train"
+        "/Users/chloechen/Documents/machineLearning/Saul_Class_Projects/data/chloedata/sprl2013-master/IAPR TC-12/gold"
+      else  "/Users/chloechen/Documents/machineLearning/Saul_Class_Projects/data/chloedata/sprl2013-master/IAPR TC-12/train"
 
 
       //YOUR EXAMPLE

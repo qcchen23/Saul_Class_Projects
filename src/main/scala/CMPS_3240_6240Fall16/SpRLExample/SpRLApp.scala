@@ -12,7 +12,7 @@ object SpRLApp extends App with Logging {
   import SpRLDataModel._
 
   val modelDir = "models/"
-  val isTrain = true
+  val isTrain = false
 
   logger.info("population starts.")
 
