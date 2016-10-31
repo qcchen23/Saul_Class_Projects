@@ -2,38 +2,30 @@ package CMPS_3240_6240Fall16.SpRLExample
 import java.io.File
 
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.Constituent
-import edu.illinois.cs.cogcomp.core.utilities.configuration.ResourceManager
 import edu.illinois.cs.cogcomp.saul.classifier.Learnable
 import edu.illinois.cs.cogcomp.saul.util.Logging
-import edu.illinois.cs.cogcomp.saulexamples.nlp.SpatialRoleLabeling.SpRLConfigurator
 
 /** Created by Parisa on 7/29/16.
   */
 object SpRLApp extends App with Logging {
   import SpRLClassifiers._
-  import SpRLConfigurator._
   import SpRLDataModel._
 
-  val properties: ResourceManager = {
-    logger.info("Loading default configuration parameters")
-    new SpRLConfigurator().getDefaultConfig
-  }
-  val modelDir = properties.getString(MODELS_DIR) +
-    File.separator + properties.getString(SpRL_MODEL_DIR) + File.separator
-  val isTrain = properties.getBoolean(IS_TRAINING)
+  val modelDir = "models/"
+  val isTrain = true
 
   logger.info("population starts.")
 
-  PopulateSpRLDataModel()
+  PopulateSpRLDataModel(isTrain)
   val trajectors = tokens().filter(x=> isTrajector(x).equals("true"))
   val landmarks = tokens().filter(x=> isLandmark(x).equals("true"))
   val spatialIndicators = tokens().filter(x=> isSpatialIndicator(x).equals("true"))
 
-  logger.info("all sentences number after population:" + sentences().size)
-  logger.info("all tokens number after population:" + tokens().size)
-  logger.info("all trajectors number after population:" + trajectors.size)
-  logger.info("all landmarks number after population:" + landmarks.size)
-  logger.info("all spatialIndicators number after population:" + spatialIndicators.size)
+  logger.info("number of all sentences after population:" + sentences().size)
+  logger.info("number of all tokens after population:" + tokens().size)
+  logger.info("number of all trajectors after population:" + trajectors.size)
+  logger.info("number of all landmarks after population:" + landmarks.size)
+  logger.info("number of all spatialIndicators after population:" + spatialIndicators.size)
 
   runClassifier(trajectorClassifier, "trajectors")
   runClassifier(landmarkClassifier, "landmarks")
