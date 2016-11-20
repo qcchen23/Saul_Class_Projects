@@ -32,7 +32,7 @@ object SpRLApp extends App with Logging {
   runClassifier(spatialIndicatorClassifier, "spatialIndicators")
 
   def runClassifier(classifier: Learnable[Constituent], name: String): Unit = {
-    classifier.modelDir = modelDir + name + File.separator
+    //classifier.modelDir = modelDir + name + File.separator
     if (isTrain) {
       logger.info("training " + name + "...")
       classifier.learn(100)

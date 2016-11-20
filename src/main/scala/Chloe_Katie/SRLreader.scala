@@ -59,20 +59,7 @@ object SpRLDataModelReader extends Logging {
 
   private def getDocumentSentences(as: AnnotatorService, doc: SpRL2013Document, version: String): List[(String, IntPair)] = {
     version match {
-      case "2012" => {
-        // 2012 sentences end with '.\n\n' so
-        // split by '.\n\n' and keep the delimiter with the previous sentence
-        val sentences = doc.getTEXT.getContent.split("(?<=.\\n\\n)")
-        var start = 0
-        sentences.map(s => {
-          val pair = (s, new IntPair(start, start + s.length))
-          start = start + s.length
-          pair
-        }).toList
-      }
       case "2013" => {
-        // 2013 sentences are more complex to split compared to 2012 version, so we let the TextAnnotationFactory
-        // do it
         val ta = TextAnnotationFactory.createBasicTextAnnotation(as, version, doc.getFilename, doc.getTEXT().getContent)
         ta.sentences().asScala.map(s => (s.getText, getSentenceOffset(s))).toList
       }
