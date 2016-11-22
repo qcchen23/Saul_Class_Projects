@@ -25,9 +25,7 @@ object CK_SpRLClassifiers {
 
     //taking all tokens labeled spatial indicator, using val isSpatialIndicator defined in dataModel, tells classifier
     //to learn on these tokens specifically
-
     //incorporates features into the classifier
-
     //defines classifier as a SparseNetworkLearner
   }
 

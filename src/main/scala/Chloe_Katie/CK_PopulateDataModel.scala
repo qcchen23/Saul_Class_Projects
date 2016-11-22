@@ -87,30 +87,41 @@ object CK_PopulateDataModel {
             ViewNames.LEMMA, ViewNames.POS, ViewNames.SHALLOW_PARSE,
             ViewNames.PARSE_GOLD, ViewNames.SRL_VERB
           )
-          val taBuilder = new TokenizerTextAnnotationBuilder(new StatefulTokenizer())
+          /*val taBuilder = new TokenizerTextAnnotationBuilder(new StatefulTokenizer())
           input match {
 
-            case sentence: String if sentence.trim.nonEmpty =>
+            case input: String if input.trim.nonEmpty =>
               val settings = new Properties()
               TextAnnotationFactory.disableSettings(settings, USE_SRL_NOM, USE_NER_ONTONOTES, USE_SRL_VERB, USE_SHALLOW_PARSE,
                 USE_STANFORD_DEP, USE_NER_CONLL)
               val as = TextAnnotationFactory.createPipelineAnnotatorService(settings)
-              val ta = TextAnnotationFactory.createTextAnnotation(as, "", "", sentence,
+              val ta = TextAnnotationFactory.createTextAnnotation(as, "", "", input,
                 "sprl-Trajector", "sprl-Landmark", "sprl-SpatialIndicator")
               val textA = ta.sentences.get(0)
+              print(ta.getView("sprl-Landmark"))
               return textA
 
-            case _ => return null
-          }
+            case _ => null
+          }*/
+
+          val settings = new Properties()
+          TextAnnotationFactory.disableSettings(settings, USE_SRL_NOM, USE_NER_ONTONOTES, USE_SRL_VERB, USE_SHALLOW_PARSE,
+            USE_STANFORD_DEP, USE_NER_CONLL)
+          val as = TextAnnotationFactory.createPipelineAnnotatorService(settings)
+          val ta = TextAnnotationFactory.createTextAnnotation(as, "", "", input,
+            "sprl-Trajector", "sprl-Landmark", "sprl-SpatialIndicator")
+          val textA = ta.sentences.get(0)
+          print(ta.getView("sprl-Landmark"))
+          return textA
         }
 
       val TextList = List(interactiveSpRLTagging())
       CK_SpRLDataModel.sentences.populate(TextList, train = isTrain)
-      println(TextList)
 
     }
 
     else {
+      //the third case when it's testing on the test file
       def readSpRLDocuments(): List[Sentence] = {
         val path = if (isTrain)
           "/Users/chloechen/Documents/machineLearning/Saul_Class_Projects/data/chloedata/sprl2013-master/IAPR TC-12/gold"
@@ -160,10 +171,9 @@ object CK_PopulateDataModel {
         //puts the sentences back into the list
       }
       CK_SpRLDataModel.sentences.populate(readSpRLDocuments(), train = isTrain)
+
     }
   }
-
-    //second case where istrain is false, request input in true
 
     def SetSpRLLabels(ta: TextAnnotation, tokens: List[SpRLAnnotation], label: String, sentStart: Int, sentEnd: Int) = {
       tokens.foreach(t => {

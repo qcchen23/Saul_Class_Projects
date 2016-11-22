@@ -5,7 +5,6 @@
 package Chloe_Katie
 
 import java.io.File
-import java.util.Properties
 
 import edu.illinois.cs.cogcomp.core.datastructures.ViewNames
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.{Constituent, TextAnnotation, TokenLabelView}
@@ -30,7 +29,7 @@ object CK_SpRLApp extends App {
   //imports classifier and datamodel scala files
 
   val modelDir = "models/"
-  //not certain what it refers to, seems connected to the Learnable.scala module
+  //not certain what it refers to, seems connected tsodasdfso the Learnable.scala module
   val isTrain = false
   //sets boolean attribute that switches between the training and testing mode
   val requestInput = true
@@ -55,24 +54,25 @@ object CK_SpRLApp extends App {
       classifier.save()
       //if training, iterates learning 100 times
     }
-    else {
+    else{
       classifier.load()
       classifier.test()
-    }
       //if not training, tests on the testing data
+    }
+
   }
 
-  /*if (requestInput){
-
-    val inputTrajector = tokens().filter(x=> trajectorClassifier(x).equals("true"))
-    val inputLandmark = tokens().filter(x=> landmarkClassifier(x).equals("true"))
-    val inputSpatialIndicator = tokens().filter(x=> spatialIndicatorClassifier(x).equals("true"))
-    print(inputLandmark, inputLandmark, inputSpatialIndicator)
+  if (requestInput == false) {
+    runClassifier(trajectorClassifier, "trajectors")
+    runClassifier(landmarkClassifier, "landmarks")
+    runClassifier(spatialIndicatorClassifier, "spatialIndicators")
   }
-  */
-  runClassifier(trajectorClassifier, "trajectors")
-  runClassifier(landmarkClassifier, "landmarks")
-  runClassifier(spatialIndicatorClassifier, "spatialIndicators")
+
+  else {
+    println(CK_SpRLDataModel.tokens.getAllInstances.foreach(x => landmarkClassifier(tokens().head)))
+    //landmarkClassifier takes argument type edu.illinois.cs.cogcomp.core.datastructures.textannotation.Constituent
+
+  }
 
 }
 
