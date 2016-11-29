@@ -1,5 +1,5 @@
 /**
-  * Created by chloechen on 11/14/16.
+  * Created by Chloe Chen and Katie Roberts on 11/14/16.
   */
 
 package Chloe_Katie
@@ -80,7 +80,7 @@ object CK_PopulateDataModel {
 
     else if (requestInput == true && isTrain == false) {
 
-        def interactiveSpRLTagging():edu.illinois.cs.cogcomp.core.datastructures.textannotation.Sentence= {
+        def interactiveSpRL():edu.illinois.cs.cogcomp.core.datastructures.textannotation.Sentence= {
           print("input sentence here: ")
           val input = readLine()
           val viewsToAdd = Array(
@@ -111,11 +111,10 @@ object CK_PopulateDataModel {
           val ta = TextAnnotationFactory.createTextAnnotation(as, "", "", input,
             "sprl-Trajector", "sprl-Landmark", "sprl-SpatialIndicator")
           val textA = ta.sentences.get(0)
-          print(ta.getView("sprl-Landmark"))
           return textA
         }
 
-      val TextList = List(interactiveSpRLTagging())
+      val TextList = List(interactiveSpRL())
       CK_SpRLDataModel.sentences.populate(TextList, train = isTrain)
 
     }
@@ -165,9 +164,11 @@ object CK_PopulateDataModel {
 
             ta.sentences().asScala.foreach(s => sentences += s)
             offset = offset + sentence.length
+
           })
         })
         sentences.toList
+
         //puts the sentences back into the list
       }
       CK_SpRLDataModel.sentences.populate(readSpRLDocuments(), train = isTrain)

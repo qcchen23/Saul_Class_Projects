@@ -1,5 +1,5 @@
 /**
-  * Created by chloechen on 11/14/16.
+  * Created by Chloe Chen and Katie Roberts on 11/14/16.
   */
 
 package Chloe_Katie

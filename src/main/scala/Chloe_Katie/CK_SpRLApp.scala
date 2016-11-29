@@ -1,5 +1,5 @@
 /**
-  * Created by chloechen on 11/14/16.
+  * Created by Chloe Chen and Katie Roberts on 11/14/16.
   */
 
 package Chloe_Katie
@@ -32,7 +32,7 @@ object CK_SpRLApp extends App {
   //not certain what it refers to, seems connected tsodasdfso the Learnable.scala module
   val isTrain = false
   //sets boolean attribute that switches between the training and testing mode
-  val requestInput = true
+  val requestInput = false
   //third val, boolean for switch to input data
   //if requestinput = true, populate data model with sentence read from scanner,
 
@@ -43,7 +43,7 @@ object CK_SpRLApp extends App {
   val spatialIndicators = tokens().filter(x=> isSpatialIndicator(x).equals("true"))
   //three major semantic pieces we're focusing on for Spatial Role Labeling
 
-  def runClassifier(classifier: Learnable[Constituent],name: String): Unit ={
+  /*def runClassifier(classifier: Learnable[Constituent],name: String): Unit ={
     //defines runClassifier that takes specific classifier and label name of semantic roles as arguments and returns type unit
 
     classifier.modelDir = modelDir + name + File.separator
@@ -52,6 +52,9 @@ object CK_SpRLApp extends App {
     if (isTrain) {
       classifier.learn(100)
       classifier.save()
+      landmarkClassifier.save()
+      trajectorClassifier.save()
+      spatialIndicatorClassifier.save()
       //if training, iterates learning 100 times
     }
     else{
@@ -59,20 +62,48 @@ object CK_SpRLApp extends App {
       classifier.test()
       //if not training, tests on the testing data
     }
-
   }
 
   if (requestInput == false) {
     runClassifier(trajectorClassifier, "trajectors")
     runClassifier(landmarkClassifier, "landmarks")
     runClassifier(spatialIndicatorClassifier, "spatialIndicators")
+  }*/
+  if (isTrain) {
+    spatialIndicatorClassifier.learn(100)
+    trajectorClassifier.learn(100)
+    landmarkClassifier.learn(100)
+    spatialIndicatorClassifier.save()
+    trajectorClassifier.save()
+    landmarkClassifier.save()
+    //if training, iterates learning 100 times
   }
-
+  else if (isTrain == false && requestInput == false){
+    spatialIndicatorClassifier.load()
+    trajectorClassifier.load()
+    landmarkClassifier.load()
+    println("now testing spatial indicators")
+    tokens().foreach(x => println(x, spatialIndicatorClassifier(x)))
+    println("now testing trajectors")
+    CK_SpRLDataModel.tokens().foreach(x => println(x, trajectorClassifier.classifier.discreteValue(x)))
+    println("now testing landmarks")
+    CK_SpRLDataModel.tokens().foreach(x => println(x, landmarkClassifier.classifier.discreteValue(x)))
+    spatialIndicatorClassifier.test()
+    trajectorClassifier.test()
+    landmarkClassifier.test()
+  }
   else {
-    println(CK_SpRLDataModel.tokens.getAllInstances.foreach(x => landmarkClassifier(tokens().head)))
-    //landmarkClassifier takes argument type edu.illinois.cs.cogcomp.core.datastructures.textannotation.Constituent
+    spatialIndicatorClassifier.load()
+    trajectorClassifier.load()
+    landmarkClassifier.load()
+    println("now testing spatial indicators")
+    tokens().foreach(x => println(x, spatialIndicatorClassifier(x)))
+    println("now testing trajectors")
+    CK_SpRLDataModel.tokens().foreach(x => println(x, trajectorClassifier.classifier.discreteValue(x)))
+    println("now testing landmarks")
+    CK_SpRLDataModel.tokens().foreach(x => println(x, landmarkClassifier.classifier.discreteValue(x)))
 
+    //xClassifier takes argument type edu.illinois.cs.cogcomp.core.datastructures.textannotation.Constituent
   }
-
 }
 

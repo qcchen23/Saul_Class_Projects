@@ -1,13 +1,9 @@
 /**
-  * Created by chloechen on 11/14/16.
+  * Created by Chloe Chen and Katie Roberts on 11/14/16.
   */
 
 package Chloe_Katie
 
-import CMPS_3240_6240Fall16.SpRLExample.SpRLClassifiers.landmarkClassifier._
-import CMPS_3240_6240Fall16.SpRLExample.SpRLClassifiers.spatialIndicatorClassifier._
-import CMPS_3240_6240Fall16.SpRLExample.SpRLClassifiers.trajectorClassifier._
-import CMPS_3240_6240Fall16.SpRLExample.SpRLDataModel._
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.Constituent
 import edu.illinois.cs.cogcomp.lbjava.learn.SparseNetworkLearner
 import edu.illinois.cs.cogcomp.saul.classifier.Learnable
